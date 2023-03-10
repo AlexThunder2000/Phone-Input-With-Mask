@@ -5,7 +5,7 @@ import 'keyboard.dart';
 import 'modalPopup.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({super.key});
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -13,13 +13,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final TextEditingController _textController = TextEditingController();
-  late Future<List<CountryData>> _countryListFromAPI;
-
-  @override
-  void initState() {
-    super.initState();
-    _countryListFromAPI = getData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +55,7 @@ class _MainPageState extends State<MainPage> {
                           enableDrag: true,
                           context: context,
                           backgroundColor: Color(0xFF8EAAFB),
-                          builder: (context) => modalPopup(_countryListFromAPI),
+                          builder: (context) => modalPopup(),
                         );
                       },
                     ),

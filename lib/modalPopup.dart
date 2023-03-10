@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'countryDataAPI.dart';
 import 'countryList.dart';
 
 class modalPopup extends StatefulWidget {
-  modalPopup(this._countryListFromAPI, {Key? key}) : super(key: key);
+  modalPopup({Key? key}) : super(key: key);
 
-  List _countryListFromAPI;
   @override
   State<modalPopup> createState() => _modalPopupState();
 }
@@ -88,7 +86,9 @@ class _modalPopupState extends State<modalPopup> {
             ),
           ),
         ),
-        CountryList(_searchController, _countryListFromAPI),
+        CountryList(
+          _searchController,
+        ),
       ],
     );
   }

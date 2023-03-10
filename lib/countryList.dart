@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'countryDataAPI.dart';
 
 class CountryList extends StatefulWidget {
-  CountryList(this._searchController, this._countryListFromAPI, {Key? key})
-      : super(key: key);
+  const CountryList(this._searchController, {Key? key}) : super(key: key);
   final TextEditingController _searchController;
-  List _countryListFromAPI;
+
   @override
   State<CountryList> createState() => _CountryListState();
 }
