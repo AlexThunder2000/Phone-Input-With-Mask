@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:light_modal_bottom_sheet/light_modal_bottom_sheet.dart';
+
+import 'theme_data.dart';
 import 'keyboard.dart';
-import 'modalPopup.dart';
+import 'modal_popup.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -12,6 +14,42 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final TextEditingController _textController = TextEditingController();
+  String countryCallingCode = '38';
+  String countryFlag = 'https://flagcdn.com/w320/ua.png';
+
+  void changeCountry(selectedCountryFlag, selectedCountryCallingCode) {
+    setState(() {
+      countryCallingCode = selectedCountryCallingCode;
+      countryFlag = selectedCountryFlag;
+    });
+  }
+
+  void changeController(keyNumber) {
+    final currentValue = _textController.text;
+    String maskedValue = '';
+    if (currentValue.length >= 14) {
+      return;
+    }
+    final digitsOnly = RegExp(r'\d+');
+    final currentValueDigits =
+        digitsOnly.allMatches(currentValue).map((m) => m.group(0)).join();
+    final newValueDigits = currentValueDigits + keyNumber;
+
+    for (var i = 0; i < newValueDigits.length; i++) {
+      if (i == 0) {
+        maskedValue += '(${newValueDigits[i]}';
+      } else if (i == 2) {
+        maskedValue += '${newValueDigits[i]}) ';
+      } else if (i == 5) {
+        maskedValue += '${newValueDigits[i]}-';
+      } else {
+        maskedValue += newValueDigits[i];
+      }
+    }
+    setState(() {
+      _textController.text = maskedValue;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,22 +77,34 @@ class _MainPageState extends State<MainPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 71,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(244, 245, 255, 0.4),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
+                    decoration: customBoxDecoration(),
                     child: TextButton(
-                      child: Text("123"),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Row(
+                          children: [
+                            Image.network(
+                              countryFlag.toString(),
+                              height: 20,
+                              width: 20,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              '+$countryCallingCode',
+                              style: const TextStyle(
+                                  color: Color(0xFF594C74), fontSize: 15),
+                            ),
+                          ],
+                        ),
+                      ),
                       onPressed: () {
                         showBarModalBottomSheet(
                           topControl: Container(),
                           expand: false,
                           enableDrag: true,
                           context: context,
-                          backgroundColor: Color(0xFF8EAAFB),
-                          builder: (context) => ModalPopup(),
+                          backgroundColor: const Color(0xFF8EAAFB),
+                          builder: (context) => ModalPopup(changeCountry),
                         );
                       },
                     ),
@@ -63,12 +113,14 @@ class _MainPageState extends State<MainPage> {
                   Container(
                     width: 256,
                     height: 48,
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(244, 245, 255, 0.4),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
+                    decoration: customBoxDecoration(),
                     child: TextField(
                       controller: _textController,
+                      onChanged: (text) {
+                        setState(() {
+                          _textController;
+                        });
+                      },
                       enabled: false,
                       decoration: const InputDecoration(
                         hintText: 'Your phone number',
@@ -87,13 +139,11 @@ class _MainPageState extends State<MainPage> {
               child: Container(
                 width: 48,
                 height: 48,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
+                decoration: customBoxDecoration(),
                 child: ElevatedButton(
-                  onPressed: _textController.text.length < 10
+                  onPressed: _textController.text.length == 14
                       ? () {
-                          print('tap');
+                          print('+$countryCallingCode ${_textController.text}');
                         }
                       : null,
                   style: ButtonStyle(
@@ -120,7 +170,7 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
             ),
-            Keyboard(_textController),
+            Keyboard(_textController, changeController),
           ],
         ),
       ),

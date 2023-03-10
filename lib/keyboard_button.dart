@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class KeyboardButton extends StatefulWidget {
-  KeyboardButton(this.keyNumber, this.keyLetters, this._textController,
+  const KeyboardButton(this.keyNumber, this.keyLetters, this.changeController,
       {Key? key})
       : super(key: key);
 
-  String keyNumber;
-  String keyLetters;
-  final TextEditingController _textController;
+  final String keyNumber;
+  final String keyLetters;
+  final Function(String) changeController;
   @override
   State<KeyboardButton> createState() => _KeyboardButtonState();
 }
@@ -17,8 +17,7 @@ class _KeyboardButtonState extends State<KeyboardButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        widget._textController.text =
-            widget._textController.text + widget.keyNumber;
+        widget.changeController(widget.keyNumber);
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

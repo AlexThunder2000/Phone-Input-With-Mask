@@ -28,7 +28,7 @@ ThemeData myThemeData() {
 
 BoxDecoration customBoxDecoration() {
   return BoxDecoration(
-    color: Color.fromRGBO(244, 245, 255, 0.4),
+    color: const Color.fromRGBO(244, 245, 255, 0.4),
     borderRadius: BorderRadius.circular(16),
   );
 }

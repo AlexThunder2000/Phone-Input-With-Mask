@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'mainPage.dart';
-import 'themeData.dart';
+import 'main_screen.dart';
+import 'theme_data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: myThemeData(),
-      home: MainPage(),
+      home: const MainPage(),
     );
   }
 }
