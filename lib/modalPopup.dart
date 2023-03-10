@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:test_tbr/themeData.dart';
 import 'countryList.dart';
 
-class modalPopup extends StatefulWidget {
-  modalPopup({Key? key}) : super(key: key);
+class ModalPopup extends StatefulWidget {
+  ModalPopup({Key? key}) : super(key: key);
 
   @override
-  State<modalPopup> createState() => _modalPopupState();
+  State<ModalPopup> createState() => _ModalPopupState();
 }
 
-class _modalPopupState extends State<modalPopup> {
-  TextEditingController _searchController = TextEditingController();
+class _ModalPopupState extends State<ModalPopup> {
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +32,9 @@ class _modalPopupState extends State<modalPopup> {
               GestureDetector(
                 onTap: () => Navigator.of(context).pop(),
                 child: Container(
-                  height: 20,
-                  width: 20,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(244, 245, 255, 0.4),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
+                  height: 25,
+                  width: 25,
+                  decoration: customBoxDecoration(),
                   child: const Icon(
                     Icons.close,
                     size: 15,
@@ -50,10 +48,7 @@ class _modalPopupState extends State<modalPopup> {
           margin: const EdgeInsets.symmetric(horizontal: 20),
           width: 256,
           height: 48,
-          decoration: BoxDecoration(
-            color: const Color.fromRGBO(244, 245, 255, 0.4),
-            borderRadius: BorderRadius.circular(16),
-          ),
+          decoration: customBoxDecoration(),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
             child: Row(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:light_modal_bottom_sheet/light_modal_bottom_sheet.dart';
-import 'countryDataAPI.dart';
 import 'keyboard.dart';
 import 'modalPopup.dart';
 
@@ -55,7 +54,7 @@ class _MainPageState extends State<MainPage> {
                           enableDrag: true,
                           context: context,
                           backgroundColor: Color(0xFF8EAAFB),
-                          builder: (context) => modalPopup(),
+                          builder: (context) => ModalPopup(),
                         );
                       },
                     ),
