@@ -1,5 +1,6 @@
-import 'package:http/http.dart';
 import 'dart:convert';
+
+import 'package:http/http.dart';
 
 class CountryData {
   String name;
@@ -14,7 +15,8 @@ Future<List<CountryData>> getData() async {
   Response response = await get(
     Uri.parse('https://restcountries.com/v2/all'),
   );
-  var data = jsonDecode(response.body) as List<dynamic>;
+  final data = jsonDecode(response.body) as List<dynamic>;
+
   return data
       .map(
         (json) => CountryData(

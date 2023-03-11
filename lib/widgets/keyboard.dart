@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'keyboard_button.dart';
 
 class Keyboard extends StatelessWidget {
+  final TextEditingController _textController;
+  final Function(String) changeController;
+
   const Keyboard(this._textController, this.changeController, {Key? key})
       : super(key: key);
 
-  final TextEditingController _textController;
-  final Function(String) changeController;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(

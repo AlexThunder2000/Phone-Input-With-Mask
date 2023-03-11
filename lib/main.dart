@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'main_screen.dart';
-import 'theme_data.dart';
+import 'package:test_tbr/widgets/main_screen.dart';
+import 'package:test_tbr/utilities/constants.dart';
 
 void main() {
   runApp(const MyApp());

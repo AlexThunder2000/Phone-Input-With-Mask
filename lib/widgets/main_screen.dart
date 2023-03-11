@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:light_modal_bottom_sheet/light_modal_bottom_sheet.dart';
-
-import 'theme_data.dart';
-import 'keyboard.dart';
-import 'modal_popup.dart';
+import 'package:test_tbr/widgets/keyboard.dart';
+import 'package:test_tbr/widgets/modal_popup.dart';
+import 'package:test_tbr/utilities/constants.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -17,14 +16,15 @@ class _MainPageState extends State<MainPage> {
   String countryCallingCode = '38';
   String countryFlag = 'https://flagcdn.com/w320/ua.png';
 
-  void changeCountry(selectedCountryFlag, selectedCountryCallingCode) {
+  void changeCountry(
+      String selectedCountryFlag, String selectedCountryCallingCode) {
     setState(() {
       countryCallingCode = selectedCountryCallingCode;
       countryFlag = selectedCountryFlag;
     });
   }
 
-  void changeController(keyNumber) {
+  void changeController(String keyNumber) {
     final currentValue = _textController.text;
     String maskedValue = '';
     if (currentValue.length >= 14) {
@@ -78,6 +78,7 @@ class _MainPageState extends State<MainPage> {
                 children: [
                   Container(
                     decoration: customBoxDecoration(),
+                    height: 50,
                     child: TextButton(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
@@ -112,15 +113,10 @@ class _MainPageState extends State<MainPage> {
                   const SizedBox(width: 8),
                   Container(
                     width: 256,
-                    height: 48,
+                    height: 50,
                     decoration: customBoxDecoration(),
                     child: TextField(
                       controller: _textController,
-                      onChanged: (text) {
-                        setState(() {
-                          _textController;
-                        });
-                      },
                       enabled: false,
                       decoration: const InputDecoration(
                         hintText: 'Your phone number',
@@ -146,22 +142,7 @@ class _MainPageState extends State<MainPage> {
                           print('+$countryCallingCode ${_textController.text}');
                         }
                       : null,
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          return const Color.fromRGBO(244, 245, 255, 0.4);
-                        } else {
-                          return Colors.white; // Use the component's default.
-                        }
-                      },
-                    ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          side: const BorderSide(color: Colors.transparent)),
-                    ),
-                  ),
+                  style: customButtonStyle(),
                   child: const Icon(
                     Icons.arrow_forward_sharp,
                     color: Color(0xFF594C74),

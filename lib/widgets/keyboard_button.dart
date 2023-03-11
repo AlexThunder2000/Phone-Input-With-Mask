@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class KeyboardButton extends StatefulWidget {
+  final String keyNumber;
+  final String keyLetters;
+  final Function(String) changeController;
+
   const KeyboardButton(this.keyNumber, this.keyLetters, this.changeController,
       {Key? key})
       : super(key: key);
 
-  final String keyNumber;
-  final String keyLetters;
-  final Function(String) changeController;
   @override
   State<KeyboardButton> createState() => _KeyboardButtonState();
 }

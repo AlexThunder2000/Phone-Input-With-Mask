@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'country_data_api.dart';
+import 'package:test_tbr/services/country_data_api.dart';
 
 class CountryList extends StatefulWidget {
-  const CountryList(this.changeCountry, this._searchController, {Key? key})
-      : super(key: key);
   final TextEditingController _searchController;
   final Function(String, String) changeCountry;
+
+  const CountryList(this.changeCountry, this._searchController, {Key? key})
+      : super(key: key);
+
   @override
   State<CountryList> createState() => _CountryListState();
 }
@@ -23,6 +25,7 @@ class _CountryListState extends State<CountryList> {
                   .toLowerCase()
                   .contains(widget._searchController.text.trim().toLowerCase()))
               .toList();
+
           return Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -30,7 +33,8 @@ class _CountryListState extends State<CountryList> {
                 itemCount: filteredData.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
-                  CountryData country = filteredData[index];
+                  final CountryData country = filteredData[index];
+
                   return TextButton(
                     onPressed: () {
                       widget.changeCountry(country.flag.toString(),
@@ -51,7 +55,9 @@ class _CountryListState extends State<CountryList> {
                         Text(
                           '+${country.callingCode}',
                           style: const TextStyle(
-                              color: Color(0xFF594C74), fontSize: 16),
+                            color: Color(0xFF594C74),
+                            fontSize: 16,
+                          ),
                         ),
                         const SizedBox(
                           width: 20,
@@ -62,7 +68,9 @@ class _CountryListState extends State<CountryList> {
                             country.name,
                             softWrap: true,
                             style: const TextStyle(
-                                color: Colors.white, fontSize: 16),
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ],

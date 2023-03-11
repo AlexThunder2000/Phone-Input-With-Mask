@@ -32,3 +32,22 @@ BoxDecoration customBoxDecoration() {
     borderRadius: BorderRadius.circular(16),
   );
 }
+
+ButtonStyle customButtonStyle() {
+  return ButtonStyle(
+    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.disabled)) {
+          return const Color.fromRGBO(244, 245, 255, 0.4);
+        } else {
+          return Colors.white; // Use the component's default.
+        }
+      },
+    ),
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: const BorderSide(color: Colors.transparent)),
+    ),
+  );
+}
