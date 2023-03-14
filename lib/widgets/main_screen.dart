@@ -27,14 +27,32 @@ class _MainPageState extends State<MainPage> {
   void changeController(String keyNumber) {
     final currentValue = _textController.text;
     String maskedValue = '';
-    if (currentValue.length >= 14) {
-      return;
-    }
+
     final digitsOnly = RegExp(r'\d+');
     final currentValueDigits =
         digitsOnly.allMatches(currentValue).map((m) => m.group(0)).join();
-    final newValueDigits = currentValueDigits + keyNumber;
+    final String newValueDigits;
 
+    if (keyNumber == 'deleteLastValue') {
+      newValueDigits =
+          currentValueDigits.substring(0, currentValueDigits.length - 1);
+      maskedValue = maskForInput(maskedValue, newValueDigits);
+    } else if (keyNumber == 'deleteAll') {
+      newValueDigits = '';
+    } else {
+      if (currentValue.length >= 14) {
+        return;
+      }
+      newValueDigits = currentValueDigits + keyNumber;
+      maskedValue = maskForInput(maskedValue, newValueDigits);
+    }
+
+    setState(() {
+      _textController.text = maskedValue;
+    });
+  }
+
+  String maskForInput(maskedValue, newValueDigits) {
     for (var i = 0; i < newValueDigits.length; i++) {
       if (i == 0) {
         maskedValue += '(${newValueDigits[i]}';
@@ -46,9 +64,7 @@ class _MainPageState extends State<MainPage> {
         maskedValue += newValueDigits[i];
       }
     }
-    setState(() {
-      _textController.text = maskedValue;
-    });
+    return maskedValue;
   }
 
   @override
